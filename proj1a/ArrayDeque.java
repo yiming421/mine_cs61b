@@ -1,13 +1,12 @@
-import static java.lang.System.arraycopy;
 
-public class ArrayDeque<T>{
+public class ArrayDeque<T> {
     private int size;
     private T[] items;
     private int nextFirst;
     private int nextLast;
 
-    ArrayDeque(){
-        items = (T []) new Object[8];
+    public ArrayDeque() {
+        items = (T[]) new Object[8];
         nextFirst = 3;
         nextLast = 4;
     }
@@ -34,6 +33,7 @@ public class ArrayDeque<T>{
             nextLast -= items.length;
         }
         size++;
+        //printDeque();
     }
 
     public boolean isEmpty() {
@@ -50,13 +50,13 @@ public class ArrayDeque<T>{
             if (start + i >= items.length) {
                 start -= items.length;
             }
-            System.out.println(items[start + i]);
-            System.out.println(" ");
+            System.out.print(items[start + i] + " ");
         }
+        System.out.print("\n");
     }
 
     public T removeFirst() {
-        if (size <= items.length / 4) {
+        if (size * 4 <= items.length) {
             resize(items.length / 2);
         }
         nextFirst++;
@@ -70,7 +70,7 @@ public class ArrayDeque<T>{
     }
 
     public T removeLast() {
-        if (size <= items.length / 4) {
+        if (size * 4 <= items.length) {
             resize(items.length / 2);
         }
         nextLast--;
@@ -88,9 +88,23 @@ public class ArrayDeque<T>{
         return items[idx];
     }
 
-    private void resize(int _size) {
-        T [] newItems = (T []) new Object[_size];
-        System.arraycopy(items, 0, newItems, 0, items.length);
+    private void resize(int newSize) {
+        T[] newItems = (T[]) new Object[newSize];
+        int nowFirst = (nextFirst + 1) % items.length;
+        int nowLast = (nextLast - 1) % items.length;
+
+        if (nowLast > nowFirst) {
+            System.arraycopy(items, nowFirst, newItems, 0, size);
+        } else {
+            System.arraycopy(items, nowFirst, newItems, 0, items.length - nowFirst);
+            System.arraycopy(items, 0, newItems, items.length - nowFirst, nowLast + 1);
+        }
+        nextFirst = newSize - 1;
+        nextLast = size;
         items = newItems;
+        /*System.out.println(nextFirst);
+        System.out.println(nextLast);
+        System.out.println(items.length);
+        printDeque();*/
     }
 }

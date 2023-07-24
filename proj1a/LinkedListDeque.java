@@ -1,34 +1,36 @@
 public class LinkedListDeque<T> {
-    private node sentinel;
+    private Node sentinel;
     private int size;
 
-    public class node{
-        public T first;
-        public node prev;
-        public node next;
+    private class Node {
+        private T first;
+        private Node prev;
+        private Node next;
     }
 
     public LinkedListDeque() {
-        sentinel = new node();
+        sentinel = new Node();
         sentinel.prev = sentinel;
         sentinel.next = sentinel;
     }
 
     public void addFirst(T item) {
-        node temp = sentinel.next;
-        sentinel.next = new node();
+        Node temp = sentinel.next;
+        sentinel.next = new Node();
         sentinel.next.first = item;
         sentinel.next.prev = sentinel;
         sentinel.next.next = temp;
+        temp.prev = sentinel.next;
         size++;
     }
 
     public void addLast(T item) {
-        node temp = sentinel.prev;
-        sentinel.prev = new node();
+        Node temp = sentinel.prev;
+        sentinel.prev = new Node();
         sentinel.prev.first = item;
         sentinel.prev.next = sentinel;
         sentinel.prev.prev = temp;
+        temp.next = sentinel.prev;
         size++;
     }
 
@@ -41,12 +43,12 @@ public class LinkedListDeque<T> {
     }
 
     public void printDeque() {
-        node now = sentinel.next;
+        Node now = sentinel.next;
         while (now != sentinel) {
-            System.out.println(now.first);
-            System.out.println(" ");
+            System.out.print(now.first + " ");
             now = now.next;
         }
+        System.out.print("\n");
     }
 
     public T removeFirst() {
@@ -54,7 +56,8 @@ public class LinkedListDeque<T> {
             return null;
         }
         T temp = sentinel.next.first;
-        sentinel.next = sentinel.next.next;//
+        sentinel.next = sentinel.next.next;
+        sentinel.next.prev = sentinel;
         size--;
         return temp;
     }
@@ -64,26 +67,28 @@ public class LinkedListDeque<T> {
             return null;
         }
         T temp = sentinel.prev.first;
-        sentinel.prev = sentinel.prev.prev;//
-        size--;
+        sentinel.prev = sentinel.prev.prev;
+        sentinel.prev.next = sentinel;
         return temp;
     }
 
     public T get(int index) {
         int cnt = 0;
-        node now = sentinel.next;
+        Node now = sentinel.next;
         while (now != sentinel) {
             if (cnt == index) {
                 return now.first;
             }
+            cnt++;
+            now = now.next;
         }
         return null;
     }
-    private T getHelper(int index, node now) {
+    private T getHelper(int index, Node now) {
         if (index == 0) {
             return now.first;
         }
-        if(now == sentinel){
+        if (now == sentinel) {
             return null;
         }
         return getHelper(index - 1, now.next);
