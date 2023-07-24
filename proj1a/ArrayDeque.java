@@ -56,7 +56,7 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
-        if (size * 4 <= items.length) {
+        if (items.length >= 16 && size * 4 <= items.length) {
             resize(items.length / 2);
         }
         nextFirst++;
@@ -70,7 +70,7 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
-        if (size * 4 <= items.length) {
+        if (items.length >= 16 && size * 4 <= items.length) {
             resize(items.length / 2);
         }
         nextLast--;
@@ -93,7 +93,7 @@ public class ArrayDeque<T> {
         int nowFirst = (nextFirst + 1) % items.length;
         int nowLast = (nextLast - 1) % items.length;
 
-        if (nowLast > nowFirst) {
+        if (nowLast >= nowFirst) {
             System.arraycopy(items, nowFirst, newItems, 0, size);
         } else {
             System.arraycopy(items, nowFirst, newItems, 0, items.length - nowFirst);
