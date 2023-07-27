@@ -24,7 +24,7 @@ public class TestArrayDequeGold {
                 if (ret1 == null || ret2 == null) {
                     continue;
                 }
-                message += ("removeFirst(): " + ret1 + "\n");
+                message += ("removeFirst()\n");
                 assertEquals(message, ret1, ret2);
             } else if (randNum < 1 && dq1.size() > 0 && dq2.size() > 0) {
                 Integer ret1 = dq1.removeLast();
@@ -32,7 +32,7 @@ public class TestArrayDequeGold {
                 if (ret1 == null || ret2 == null) {
                     continue;
                 }
-                message += ("removeLast(): " + ret1 + "\n");
+                message += ("removeLast()\n");
                 assertEquals(message, ret1, ret2);
             }
         }
