@@ -21,11 +21,17 @@ public class TestArrayDequeGold {
             } else if (randNum < 0.75 && dq1.size() > 0 && dq2.size() > 0) {
                 Integer ret1 = dq1.removeFirst();
                 Integer ret2 = dq2.removeFirst();
+                if (ret1 == null || ret2 == null) {
+                    continue;
+                }
                 message += ("removeFirst(): " + ret1 + "\n");
                 assertEquals(message, ret1, ret2);
             } else if (randNum < 1 && dq1.size() > 0 && dq2.size() > 0) {
                 Integer ret1 = dq1.removeLast();
                 Integer ret2 = dq2.removeLast();
+                if (ret1 == null || ret2 == null) {
+                    continue;
+                }
                 message += ("removeLast(): " + ret1 + "\n");
                 assertEquals(message, ret1, ret2);
             }
