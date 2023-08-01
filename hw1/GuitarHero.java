@@ -1,4 +1,3 @@
-import synthesizer.GuitarString;
 
 /** A client that uses the synthesizer package to replicate a plucked guitar string sound */
 public class GuitarHero {
@@ -8,7 +7,7 @@ public class GuitarHero {
     /* guitar strings **/
     private static synthesizer.GuitarString[] strings = new synthesizer.GuitarString[40];
     /* keyboard representation of guitar string **/
-    private static final String keyboard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
+    private static String keyboard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
 
     public static void main(String[] args) {
         /* compute frequency and initialize strings */
