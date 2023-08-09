@@ -8,6 +8,7 @@ public class Game {
     /* Feel free to change the width and height. */
     public static final int WIDTH = 80;
     public static final int HEIGHT = 30;
+    private int savedSeed = -1;
 
     /**
      * Method used for playing a fresh game. The game should start from the main menu.
@@ -28,11 +29,36 @@ public class Game {
      * @return the 2D TETile[][] representing the state of the world
      */
     public TETile[][] playWithInputString(String input) {
-        // TODO: Fill out this method to run the game using the input passed in,
-        // and return a 2D tile representation of the world that would have been
-        // drawn if the same inputs had been given to playWithKeyboard().
-
-        TETile[][] finalWorldFrame = null;
+        ter.initialize(WIDTH, HEIGHT);
+        int seed = parseString(input);
+        TETile[][] finalWorldFrame = new TETile[WIDTH][HEIGHT];
+        NewWorld world = new NewWorld(finalWorldFrame, WIDTH, HEIGHT, seed);
+        world.generateWorld();
+        ter.renderFrame(finalWorldFrame);
         return finalWorldFrame;
+    }
+
+    private int parseString(String input) {
+        int n = input.length();
+        int seed = 0;
+        boolean flag = false;
+        for (int i = 0; i < n; ++i) {
+            char now = input.charAt(i);
+            if ((now == 'n' || now == 'N') && !flag) {
+                flag = true;
+            } else if (flag && now >= '0' && now <= '9') {
+                seed = seed * 10 + (int) input.charAt(i);
+            } else if (flag && (now == 's' || now == 'S')) {
+                flag = false;
+            } else if ((now == 'l' || now == 'L') && !flag) {
+                seed = savedSeed;
+                break;
+            } else if ((now == 'q' || now == 'Q') && !flag) {
+                if (input.charAt(i - 1) == ':') {
+                    savedSeed = seed;
+                }
+            }
+        }
+        return seed;
     }
 }
