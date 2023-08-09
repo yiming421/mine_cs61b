@@ -29,12 +29,10 @@ public class Game {
      * @return the 2D TETile[][] representing the state of the world
      */
     public TETile[][] playWithInputString(String input) {
-        ter.initialize(WIDTH, HEIGHT);
         int seed = parseString(input);
         TETile[][] finalWorldFrame = new TETile[WIDTH][HEIGHT];
         NewWorld world = new NewWorld(finalWorldFrame, WIDTH, HEIGHT, seed);
         world.generateWorld();
-        ter.renderFrame(finalWorldFrame);
         return finalWorldFrame;
     }
 

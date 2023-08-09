@@ -12,7 +12,8 @@ public class NewWorld {
     private int seed;
     boolean[][] connected;
     private final int[][] go = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
-    private final int[][] wallGo = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}, {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
+    private final int[][] wallGo = {{1, 0}, {0, 1}, {-1, 0}, {0, -1},
+            {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
     private int areaFactor = 5;
     Random random;
     int recursionCnt = 0;
@@ -161,7 +162,8 @@ public class NewWorld {
             record[i][3] = RandomUtils.uniform(random, HEIGHT);
         }
         for (int i = 0; i < WIDTH * HEIGHT / 9; ++i) {
-            if (world[record[i][0]][record[i][1]] != null && world[record[i][2]][record[i][3]] != null
+            if (world[record[i][0]][record[i][1]] != null
+                    && world[record[i][2]][record[i][3]] != null
                     && Math.abs(record[i][0] - record[i][2]) < WIDTH / 2
                     && Math.abs(record[i][1] - record[i][3]) < HEIGHT / 2) {
                 drawHall(record[i][0], record[i][1], record[i][2], record[i][3]);
