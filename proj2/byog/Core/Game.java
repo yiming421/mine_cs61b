@@ -45,12 +45,13 @@ public class Game {
             if ((now == 'n' || now == 'N') && !flag) {
                 flag = true;
             } else if (flag && now >= '0' && now <= '9') {
-                seed = seed * 10 + (int) input.charAt(i);
+                seed = seed * 10 + (int) (input.charAt(i) - '0');
             } else if (flag && (now == 's' || now == 'S')) {
                 flag = false;
             } else if ((now == 'l' || now == 'L') && !flag) {
                 seed = savedSeed;
                 break;
+
             } else if ((now == 'q' || now == 'Q') && !flag) {
                 if (input.charAt(i - 1) == ':') {
                     savedSeed = seed;

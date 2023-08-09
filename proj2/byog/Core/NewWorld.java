@@ -13,7 +13,7 @@ public class NewWorld {
     boolean[][] connected;
     private final int[][] go = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
     private final int[][] wallGo = {{1, 0}, {0, 1}, {-1, 0}, {0, -1},
-            {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
+                                    {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
     private int areaFactor = 5;
     Random random;
     int recursionCnt = 0;
@@ -72,7 +72,6 @@ public class NewWorld {
             }
             if (cnt > 5) {
                 clearWorld();
-                areaFactor--;
                 generateWorld();
             }
         }
@@ -154,14 +153,14 @@ public class NewWorld {
     }
 
     private void generateHall() {
-        int[][] record = new int[WIDTH * HEIGHT / 9][4];
-        for (int i = 0; i < WIDTH * HEIGHT / 9; ++i) {
+        int[][] record = new int[WIDTH * HEIGHT / 8][4];
+        for (int i = 0; i < WIDTH * HEIGHT / 8; ++i) {
             record[i][0] = RandomUtils.uniform(random, WIDTH);
             record[i][1] = RandomUtils.uniform(random, HEIGHT);
             record[i][2] = RandomUtils.uniform(random, WIDTH);
             record[i][3] = RandomUtils.uniform(random, HEIGHT);
         }
-        for (int i = 0; i < WIDTH * HEIGHT / 9; ++i) {
+        for (int i = 0; i < WIDTH * HEIGHT / 8; ++i) {
             if (world[record[i][0]][record[i][1]] != null
                     && world[record[i][2]][record[i][3]] != null
                     && Math.abs(record[i][0] - record[i][2]) < WIDTH / 2
